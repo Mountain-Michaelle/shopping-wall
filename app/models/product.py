@@ -1,11 +1,12 @@
+import uuid
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
-from app.db.base import Base
+from app.db.base import TimestampMixin, Base
+from app.utils.uuid import generate_uuid, uuid_length
 
 
-class Product(Base):
+class Product(TimestampMixin, Base):
     __tablename__ = "products"
-    
-    id = Column(Integer, primary_key=True, index=True)
+
     name = Column(String, nullable=False)
     price = Column(Float, nullable=False)
     store_id = Column(Integer, ForeignKey("stores.id"))
